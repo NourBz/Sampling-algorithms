@@ -1,3 +1,3 @@
-# test_repo
+# Test repository
 
-First repository on Github
+First repository on Github!
