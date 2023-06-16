@@ -1,8 +1,3 @@
-# test_repo
+MCMC sampling algorithm for parameter estimation
 
-First repository on Github
-
-Change 1
-Change 2 
-Change 3
-
+Here are several test examples.
