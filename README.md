@@ -1,3 +1,3 @@
-MCMC sampling algorithm for parameter estimation
+MCMC and Dynesty sampling algorithms for parameter estimation
 
-Here are several test examples.
+You can find several test examples.
