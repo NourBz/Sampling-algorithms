@@ -32,18 +32,18 @@ def llike(data_dl, delta_dl, H0_prop, **kwargs):
     The (log) likelihood is the sum of the first and second terms.
 
     """
-    # NOTE: There is a bias here. Be careful. 
 
-    # Distance redshift relation
-    # integrand = kwargs['integrand']
-    # estm_dl = integrand/H0_prop
-
+    # We know omega_m and the redshift of the source
     Omega_m = kwargs['Omega_m']
     z_s = kwargs['z_s']
 
+    # Generate new cosmology
     cosmo_prop = FlatLambdaCDM(H0=H0_prop, Om0 = Omega_m)
+
+    # Estimate the distance with this cosmology
     estm_dl = cosmo_prop.luminosity_distance(z_s).value
 
+    # Compute log-likelihood
     llike = -0.5*np.sum((delta_dl**-2) * (data_dl - estm_dl)**2)
     return(llike)
 
