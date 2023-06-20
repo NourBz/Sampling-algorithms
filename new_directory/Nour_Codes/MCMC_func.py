@@ -1,9 +1,9 @@
 import numpy as np
-from scipy import integrate
+import scipy.integrate as integrate
 from tqdm import tqdm
 from astropy.cosmology import FlatLambdaCDM
 
-def llike(data_dl, delta_dl, H0_prop, Omega_m_prop **kwargs):
+def llike(data_dl, delta_dl, H0_prop, Omega_m_prop, **kwargs):
     """
     Computes the (log) likelihood for a given set of data in the context of a distance-redshift relation.
 
@@ -55,11 +55,9 @@ def lprior_uniform(param, param_low_val, param_high_val):
     else:
         return 0
 
-def lpost(data_dl, delta_dl, H0_prop, Omega_prop, **kwargs, param1_low_range = 30, param1_high_range = 100, 
-          param2_low_range = 0, param2_high_range = 5):
+def lpost(data_dl, delta_dl, H0_prop, Omega_m_prop, param1_low_range = 30, param1_high_range = 100, param2_low_range = 0, param2_high_range = 5, **kwargs):
     """
     Compute the log posterior by combining the log prior and log likelihood.
-
     Parameters:
     data_dl (array-like): Array of observed luminosity distances.
     data_z (array-like): Array of corresponding redshift values.
@@ -87,9 +85,9 @@ def lpost(data_dl, delta_dl, H0_prop, Omega_prop, **kwargs, param1_low_range = 3
     The log likelihood is computed using the `llike` function, which takes the observed data, proposed H0 value,
     uncertainty values, and number of observed data points as inputs.
     """
-    return lprior_uniform(H0_prop, param1_low_range, param1_high_range) 
+    return (lprior_uniform(H0_prop, param1_low_range, param1_high_range) 
          + lprior_uniform(Omega_m_prop, param2_low_range, param2_high_range)
-         + llike(data_dl, delta_dl, H0_prop, Omega_m_prop, **kwargs)
+         + llike(data_dl, delta_dl, H0_prop, Omega_m_prop, **kwargs))
 
 
 def accept_reject(lp_prop, lp_prev):
