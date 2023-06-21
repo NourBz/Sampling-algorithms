@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from MCMC_func import MCMC_run
 from astropy.cosmology import FlatLambdaCDM
+import corner
 
 H0_true = 70.5   # True value of hubble constant 
 Omega_m_true = 0.274
@@ -49,7 +50,7 @@ params = [r"$H_0$", r"$\Omega_m$"]
 
 figure = corner.corner(samples, bins = 30, color = 'purple', labels = params, 
                 plot_datapoints = False, smooth1d = True, smooth = True, quantiles=[0.16, 0.5, 0.84],
-                show_titles = True, label_kwargs = {"fontsize":12}, title_fmt='.2f',title_kwargs={"fontsize": 12})
+                show_titles = True, label_kwargs = {"fontsize":12}, title_fmt='.3f',title_kwargs={"fontsize": 12})
 
 axes = np.array(figure.axes).reshape((2, 2))
 
