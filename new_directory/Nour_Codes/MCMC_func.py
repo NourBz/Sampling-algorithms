@@ -2,7 +2,7 @@ import numpy as np
 import scipy.integrate as integrate
 from tqdm import tqdm
 from astropy.cosmology import FlatLambdaCDM
-
+ 
 def llike(data_dl, delta_dl, H0_prop, Omega_m_prop, **kwargs):
     """
     Computes the (log) likelihood for a given set of data in the context of a distance-redshift relation.
@@ -40,7 +40,7 @@ def llike(data_dl, delta_dl, H0_prop, Omega_m_prop, **kwargs):
   
     z_s = kwargs['z_s']
 
-    cosmo_prop = FlatLambdaCDM(H0=H0_prop, Om0 = Omega_m_prop)
+    cosmo_prop = FlatLambdaCDM(H0=H0_prop, Om0 = np.abs(Omega_m_prop))
     estm_dl = cosmo_prop.luminosity_distance(z_s).value
 
     llike = -0.5*np.sum((delta_dl**-2) * (data_dl - estm_dl)**2)
@@ -117,8 +117,7 @@ def accept_reject(lp_prop, lp_prev):
     else:
         return(0)  # Reject
 
-def MCMC_run(data_dl, delta_dl, param_start,  printerval = 5000, H0_var_prop = 0.05, 
-             Omega_m_var_prop = 0.01, Ntotal = 50000, burnin = 0, **kwargs):
+def MCMC_run(data_dl, delta_dl, param_start,  printerval = 50000, H0_var_prop = 2**2, Omega_m_var_prop = 0.05**2, Ntotal = 150000, burnin = 10000, **kwargs):
     """
     Metropolis MCMC sampler for parameter estimation.
 
