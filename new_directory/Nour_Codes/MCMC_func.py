@@ -1,5 +1,4 @@
 import numpy as np
-import scipy.integrate as integrate
 from tqdm import tqdm
 from astropy.cosmology import FlatLambdaCDM
  

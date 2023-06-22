@@ -35,7 +35,7 @@ H0_chain, Omega_m_chain, lp = MCMC_run(data_dl, delta_dl, param_start, **kwargs)
 
 # Output results
 ma = np.mean(H0_chain)
-sda = np.std(H0_chain)
+sda = np.std(H0_chain) 
 
 mb = np.mean(Omega_m_chain)
 sdb = np.std(Omega_m_chain)
